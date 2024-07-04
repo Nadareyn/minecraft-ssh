@@ -6,8 +6,7 @@ FROM alpine:latest
 RUN apk add --no-cache openssh bash shadow
 
 # SSH Server configuration file
-RUN echo -e "Port 22\n" >> /etc/ssh/sshd_config
-# ADD sshd_config /etc/ssh/sshd_config
+ADD sshd_config /etc/ssh/sshd_config
 # RUN addgroup sftp
 
 COPY entrypoint.sh /entrypoint.sh
