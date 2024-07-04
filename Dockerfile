@@ -7,7 +7,7 @@ RUN apk add --no-cache openssh bash shadow
 
 # SSH Server configuration file
 ADD sshd_config /etc/ssh/sshd_config
-# RUN addgroup sftp
+RUN addgroup sftp
 
 COPY entrypoint.sh /entrypoint.sh
 
