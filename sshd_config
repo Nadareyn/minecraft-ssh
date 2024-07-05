@@ -1,4 +1,5 @@
 Port 22
 PasswordAuthentication yes
 PermitEmptyPasswords no
-#PermitRootLogin no
+PermitRootLogin no
+Subsystem sftp /usr/lib/openssh/sftp-server -f AUTHPRIV -l info
