@@ -18,6 +18,18 @@ if [ ! -f "/etc/ssh/ssh_host_ecdsa_key" ]; then
   ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
 fi
 
+if ! cut -d: -f1 /etc/passwd | grep -q $USERNAME; then
+  echo "no user has name $USERNAME"
+  #useradd -u $OWNER_ID -M -d $FOLDER -G $OWNER_GROUP -s /bin/false $USERNAME
+  useradd -M -d $FOLDER -G $OWNER_GROUP $USERNAME
+else
+  echo "an user has name $USERNAME"
+  #usermod -u $OWNER_ID -G $OWNER_GROUP -a -d $FOLDER -s /bin/false $USERNAME
+fi
+
+# Change sftp password
+echo "$USERNAME:$PASSWORD" | chpasswd
+
 tail -f /dev/null
 
  # Grab UID of owner of sftp home directory
