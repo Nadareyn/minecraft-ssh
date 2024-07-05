@@ -18,6 +18,8 @@ if [ ! -f "/etc/ssh/ssh_host_ecdsa_key" ]; then
   ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
 fi
 
+tail -f /dev/null
+
  # Grab UID of owner of sftp home directory
   if [ -z $OWNER_ID ]; then
     OWNER_ID=$(stat -c '%u' $FOLDER)
