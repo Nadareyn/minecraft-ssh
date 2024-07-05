@@ -19,7 +19,7 @@ if [ ! -f "/etc/ssh/ssh_host_ecdsa_key" ]; then
 fi
 
 if ! cut -d: -f1 /etc/passwd | grep -q $USERNAME; then
-  echo "no user has name $USERNAME"
+  echo "create user $USERNAME"
   #useradd -u $OWNER_ID -M -d $FOLDER -G $OWNER_GROUP -s /bin/false $USERNAME
   useradd -M -d $FOLDER -G $OWNER_GROUP $USERNAME
 else
@@ -30,6 +30,9 @@ fi
 # Change sftp password
 echo "$USERNAME:$PASSWORD" | chpasswd
 
+exec "$@"
+
+echo "oh no"
 tail -f /dev/null
 
  # Grab UID of owner of sftp home directory
