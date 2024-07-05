@@ -15,7 +15,12 @@ RUN chmod +x /entrypoint.sh
 RUN mkdir /data
 RUN mkdir /etc/cache_keys
 
+# 22 for ssh
 EXPOSE 22
+# 25565 for papermc
+EXPOSE 25565/tcp
+EXPOSE 25565/udp
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 # RUN SSH in no daemon and expose errors to stdout
