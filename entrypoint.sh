@@ -37,8 +37,8 @@ fi
     fi
   else
     # If user doesn't exist on the system
-    echo "user with uid $OWNER_ID already exist"
     existing_user_with_uid=$(awk -F: "/:$OWNER_ID:/{print \$1}" /etc/passwd)
+    echo "user with uid $OWNER_ID already exist ($existing_user_with_uid)"
     usermod -d $FOLDER -G $OWNER_GROUP -a -s /bin/false -l $USERNAME $existing_user_with_uid
   fi
 
