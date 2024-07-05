@@ -22,6 +22,7 @@ if ! cut -d: -f1 /etc/passwd | grep -q $USERNAME; then
   echo "create user $USERNAME"
   #useradd -u $OWNER_ID -M -d $FOLDER -G $OWNER_GROUP -s /bin/false $USERNAME
   useradd -M -d $FOLDER -G $OWNER_GROUP $USERNAME
+  chown -R $USERNAME:$OWNER_GROUP $FOLDER
 else
   echo "an user has name $USERNAME"
   #usermod -u $OWNER_ID -G $OWNER_GROUP -a -d $FOLDER -s /bin/false $USERNAME
