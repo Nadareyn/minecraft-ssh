@@ -12,6 +12,7 @@ RUN addgroup sftp
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 RUN mkdir /data
+RUN mkdir /etc/cache_keys
 
 EXPOSE 22
 ENTRYPOINT [ "/entrypoint.sh" ]
