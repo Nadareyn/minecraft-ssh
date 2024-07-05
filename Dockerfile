@@ -1,9 +1,9 @@
 FROM alpine:latest
 
-# shadow is required for usermod
 # bash for entrypoint script
 # openssh for ssh and sftp
-RUN apk add --no-cache openssh bash shadow
+# openjdk21-jre for papermc
+RUN apk add --no-cache openssh bash openjdk21-jre
 
 # SSH Server configuration file
 ADD sshd_config /etc/ssh/sshd_config
