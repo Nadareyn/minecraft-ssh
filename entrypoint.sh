@@ -3,26 +3,26 @@ set -e
 
 FOLDER=/data
 OWNER_GROUP=sftp
-NEW_KEY=false
+NEW_KEY=0
 
 # Regenerate keys
 if [ ! -f "/etc/cache_keys/ssh_host_rsa_key" ]; then
-  NEW_KEY=true
+  NEW_KEY=1
   echo "generate rsa key"
   ssh-keygen -f /etc/cache_keys/ssh_host_rsa_key -N '' -t rsa
 fi
 if [ ! -f "/etc/cache_keys/ssh_host_dsa_key" ]; then
-  NEW_KEY=true
+  NEW_KEY=1
   echo "generate dsa key"
   ssh-keygen -f /etc/cache_keys/ssh_host_dsa_key -N '' -t dsa
 fi
 if [ ! -f "/etc/cache_keys/ssh_host_ecdsa_key" ]; then
-  NEW_KEY=true
+  NEW_KEY=1
   echo "generate ecdsa key"
   ssh-keygen -f /etc/cache_keys/ssh_host_ecdsa_key -N '' -t ecdsa
 fi
 
-if [ $NEW_KEY]; then
+if [ $NEW_KEY -eq 1 ]; then
   echo "add volume /etc/cache_keys to avoid new generated keys at startup"
 fi
 
