@@ -42,6 +42,8 @@ services:
 - autorize password from /etc/environment
 - multi ssh users
 - tag image with "latest" tag
+- download papermc server
+- start papermc server at startup
 
 ## Usefull links
 - https://papermc.io
