@@ -2,8 +2,8 @@
 
 Docker image for papermc with ssh access
 
-<p align="center">
-  <img src="assets/papermc-nico.jfif" style="max-height: 400px" title="papermc-nico image" />
+<p align="center" style="max-height: 400px">
+  <img src="assets/papermc-nico.jfif" title="papermc-nico image" />
 </p>
 
 ## Options
