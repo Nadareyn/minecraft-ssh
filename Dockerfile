@@ -6,6 +6,9 @@ FROM alpine:latest
 # openjdk21-jre for papermc
 RUN apk add --no-cache openssh bash shadow openjdk21-jre
 
+# optional packages
+RUN apk add --no-cache nano
+
 # SSH Server configuration file
 ADD sshd_config /etc/ssh/sshd_config
 RUN addgroup sftp
