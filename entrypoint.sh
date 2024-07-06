@@ -31,7 +31,6 @@ cp /etc/cache_keys/* /etc/ssh/
 
 if ! cut -d: -f1 /etc/passwd | grep -q $USERNAME; then
   echo "create user $USERNAME"
-  #useradd -u $OWNER_ID -M -d $FOLDER -G $OWNER_GROUP -s /bin/false $USERNAME
   useradd -M -d $FOLDER -G $OWNER_GROUP $USERNAME
   chown -R $USERNAME:$OWNER_GROUP $FOLDER
 else
