@@ -3,8 +3,8 @@ FROM alpine:latest
 # shadow is required for useradd/usermod
 # bash for entrypoint script
 # openssh for ssh and sftp
-# openjdk21-jre for papermc
-RUN apk add --no-cache openssh bash shadow openjdk21-jre
+# openjdk21-jre udev for papermc
+RUN apk add --no-cache openssh bash shadow openjdk21-jre udev
 
 # optional packages
 RUN apk add --no-cache nano
