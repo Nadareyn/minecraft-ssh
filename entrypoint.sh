@@ -41,7 +41,7 @@ fi
 echo "$USERNAME:$PASSWORD" | chpasswd
 
 echo "start openssh"
-exec "/usr/sbin/sshd -D"
+exec "/usr/sbin/sshd"
 
 echo "start papermc"
 exec "java -Xms6G -Xmx6G -jar $FOLDER/$JAR_PATH --nogui"
