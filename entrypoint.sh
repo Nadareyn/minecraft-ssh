@@ -44,5 +44,6 @@ echo "start openssh"
 /usr/sbin/sshd
 
 echo "start papermc"
-java -Xms6G -Xmx6G -jar $FOLDER/$JAR_PATH --nogui
+cd $FOLDER/$JAR_PATH
+exec java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
 # exec "$@"
