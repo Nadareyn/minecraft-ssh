@@ -40,4 +40,9 @@ fi
 # Change sftp password
 echo "$USERNAME:$PASSWORD" | chpasswd
 
-exec "$@"
+echo "start openssh"
+exec "/usr/sbin/sshd -D"
+
+echo "start papermc"
+exec "java -Xms6G -Xmx6G -jar $FOLDER/$JAR_PATH --nogui"
+# exec "$@"
