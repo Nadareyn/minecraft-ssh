@@ -41,7 +41,7 @@ fi
 echo "$USERNAME:$PASSWORD" | chpasswd
 
 echo "start openssh"
-exec /usr/sbin/sshd
+/usr/sbin/sshd
 # exec /usr/sbin/sshd -D
 
 echo "start papermc"
