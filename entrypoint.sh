@@ -40,11 +40,15 @@ fi
 # Change sftp password
 echo "$USERNAME:$PASSWORD" | chpasswd
 
-echo "start openssh"
-/usr/sbin/sshd
-# exec /usr/sbin/sshd -D
+if [ $KEEP_ALIVE -eq 1 ]; then
+  echo "start openssh"
+  exec /usr/sbin/sshd -D
+else 
+  echo "start openssh"
+  /usr/sbin/sshd
 
-echo "start papermc"
-cd $FOLDER/$JAR_PATH
-exec java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
+  echo "start papermc"
+  cd $FOLDER/$JAR_PATH
+  exec java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
+fi
 # exec "$@"
