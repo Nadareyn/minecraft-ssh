@@ -41,9 +41,9 @@ fi
 echo "$USERNAME:$PASSWORD" | chpasswd
 
 echo "start openssh"
-/usr/sbin/sshd
+exec /usr/sbin/sshd
 
-echo "start papermc"
-cd $FOLDER/$JAR_PATH
-exec java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
+# echo "start papermc"
+# cd $FOLDER/$JAR_PATH
+# exec java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
 # exec "$@"
