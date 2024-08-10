@@ -64,7 +64,7 @@ fi
 
 if [ $KEEP_ALIVE -eq 1 ]; then
   echo "Keep alive"
-  exec tail -f /dev/null
+  tail -f /dev/null
 else
   exec "$@"
 fi
