@@ -2,8 +2,8 @@
 set -e
 
 # Docker variables
-${USERNAME:?Error USERNAME is not defined}
-${PASSWORD:?Error PASSWORD is not defined}
+USERNAME=${USERNAME:?Error USERNAME is not defined}
+PASSWORD=${PASSWORD:?Error PASSWORD is not defined}
 KEEP_ALIVE=${KEEP_ALIVE:=0}
 JAR_PATH=${JAR_PATH:=}
 
