@@ -48,7 +48,7 @@ fi
 echo "$USERNAME:$PASSWORD" | chpasswd
 
 echo "Start openssh"
-exec /usr/sbin/sshd
+/usr/sbin/sshd
 # exec /usr/sbin/sshd -D
 
 if [ -f $FOLDER/$JAR_PATH ]; then
@@ -57,7 +57,7 @@ if [ -f $FOLDER/$JAR_PATH ]; then
   JAR_NAME="$(basename $FOLDER/$JAR_PATH)"
   cd $JAR_DIR
   su $USERNAME
-  exec java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
+  java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
 else
   echo "Minecraft jar file not found, please check environment variable \$JAR_PATH. It should match /$FOLDER/\$JAR_PATH"
 fi
