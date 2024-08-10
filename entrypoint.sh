@@ -33,7 +33,7 @@ if [ $NEW_KEY -eq 1 ]; then
   echo "/!\ Add volume /etc/cache_keys to avoid new generated keys at startup"
 fi
 
-echo "copy ssh keys"
+echo "Copy ssh keys"
 cp /etc/cache_keys/* /etc/ssh/
 
 if ! cut -d: -f1 /etc/passwd | grep -q $USERNAME; then
@@ -41,7 +41,7 @@ if ! cut -d: -f1 /etc/passwd | grep -q $USERNAME; then
   useradd -M -d $FOLDER -G $OWNER_GROUP $USERNAME
   chown -R $USERNAME:$OWNER_GROUP $FOLDER
 else
-  echo "user $USERNAME already exit"
+  echo "User $USERNAME already exit"
 fi
 
 # Change username password
