@@ -59,7 +59,7 @@ if [ -f $FOLDER/$JAR_PATH ]; then
   su $USERNAME
   java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
 else
-  echo "Minecraft jar file not found, please check environment variable \$JAR_PATH. It should match /$FOLDER/\$JAR_PATH"
+  echo "Minecraft jar file not found, please check environment variable \$JAR_PATH. It should match $FOLDER/\$JAR_PATH"
 fi
 
 if [ $KEEP_ALIVE -eq 1 ]; then
