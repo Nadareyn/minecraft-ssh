@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+# Docker variables
+${USERNAME:?Error USERNAME is not defined}
+${PASSWORD:?Error PASSWORD is not defined}
+KEEP_ALIVE=${KEEP_ALIVE:=0}
+JAR_PATH=${JAR_PATH:=}
+
+# Script variables
 FOLDER=/data
 OWNER_GROUP=sftp
 NEW_KEY=0
@@ -8,47 +15,56 @@ NEW_KEY=0
 # Regenerate keys
 if [ ! -f "/etc/cache_keys/ssh_host_rsa_key" ]; then
   NEW_KEY=1
-  echo "generate rsa key"
+  echo "Generate rsa key"
   ssh-keygen -f /etc/cache_keys/ssh_host_rsa_key -N '' -t rsa
 fi
 if [ ! -f "/etc/cache_keys/ssh_host_dsa_key" ]; then
   NEW_KEY=1
-  echo "generate dsa key"
+  echo "Generate dsa key"
   ssh-keygen -f /etc/cache_keys/ssh_host_dsa_key -N '' -t dsa
 fi
 if [ ! -f "/etc/cache_keys/ssh_host_ecdsa_key" ]; then
   NEW_KEY=1
-  echo "generate ecdsa key"
+  echo "Generate ecdsa key"
   ssh-keygen -f /etc/cache_keys/ssh_host_ecdsa_key -N '' -t ecdsa
 fi
 
 if [ $NEW_KEY -eq 1 ]; then
-  echo "add volume /etc/cache_keys to avoid new generated keys at startup"
+  echo "/!\ Add volume /etc/cache_keys to avoid new generated keys at startup"
 fi
 
 echo "copy ssh keys"
 cp /etc/cache_keys/* /etc/ssh/
 
 if ! cut -d: -f1 /etc/passwd | grep -q $USERNAME; then
-  echo "create user $USERNAME"
+  echo "Create user $USERNAME"
   useradd -M -d $FOLDER -G $OWNER_GROUP $USERNAME
   chown -R $USERNAME:$OWNER_GROUP $FOLDER
 else
   echo "user $USERNAME already exit"
 fi
 
-# Change sftp password
+# Change username password
 echo "$USERNAME:$PASSWORD" | chpasswd
 
-if [ $KEEP_ALIVE -eq 1 ]; then
-  echo "start openssh"
-  exec /usr/sbin/sshd -D
-else 
-  echo "start openssh"
-  /usr/sbin/sshd
+echo "Start openssh"
+exec /usr/sbin/sshd
+# exec /usr/sbin/sshd -D
 
-  echo "start papermc"
-  cd $FOLDER/$JAR_PATH
+if [ -f $FOLDER/$JAR_PATH ]; then
+  echo "Start minecraft"  
+  JAR_DIR="$(dirname $FOLDER/$JAR_PATH)"
+  JAR_NAME="$(basename $FOLDER/$JAR_PATH)"
+  cd $JAR_DIR
+  su $USERNAME
   exec java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
+else
+  echo "Minecraft jar file not found, please check environment variable \$JAR_PATH. It should match /$FOLDER/\$JAR_PATH"
 fi
-# exec "$@"
+
+if [ $KEEP_ALIVE -eq 1 ]; then
+  echo "Keep alive"
+  exec tail -f /dev/null
+else
+  exec "$@"
+fi
