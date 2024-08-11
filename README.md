@@ -22,7 +22,7 @@ Docker image for minecraft with ssh access
 
 ### Ports 
 - Port `22` for ssh access. We strongly recommend to expose another port on internet network. 22 should be used by docker server itself.
-- Port `25565` in tcp/udp for parpermc
+- Port `25565` in tcp/udp for minecraft
 
 ### Volumes
 We strongly recommend to mount the following volumes:
