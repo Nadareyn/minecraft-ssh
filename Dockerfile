@@ -2,9 +2,10 @@ FROM alpine:latest
 
 # shadow is required for useradd/usermod
 # bash for entrypoint script
+# gosu for exec as another user
 # openssh for ssh and sftp
-# openjdk21-jre udev for papermc
-RUN apk add --no-cache openssh bash shadow openjdk21-jre udev
+# openjdk21-jre udev for Minecraft 
+RUN apk add --no-cache openssh bash shadow openjdk21-jre udev gosu
 
 # optional packages
 RUN apk add --no-cache nano
