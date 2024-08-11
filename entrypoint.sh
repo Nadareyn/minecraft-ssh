@@ -56,7 +56,7 @@ if [ -f $FOLDER/$JAR_PATH ]; then
   JAR_DIR="$(dirname $FOLDER/$JAR_PATH)"
   JAR_NAME="$(basename $FOLDER/$JAR_PATH)"
   cd $JAR_DIR
-  su $USERNAME
+  su - $USERNAME
   java -Xms6G -Xmx6G -jar $JAR_NAME --nogui
 else
   echo "Minecraft jar file not found, please check environment variable \$JAR_PATH. It should match $FOLDER/\$JAR_PATH"
