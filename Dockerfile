@@ -2,10 +2,38 @@ FROM alpine:latest
 
 # shadow is required for useradd/usermod
 # bash for entrypoint script
-# gosu for exec as another user
 # openssh for ssh and sftp
 # openjdk21-jre udev for Minecraft 
-RUN apk add --no-cache openssh bash shadow openjdk21-jre udev gosu
+RUN apk add --no-cache openssh bash shadow openjdk21-jre udev
+
+# gosu for exec as another user
+ENV GOSU_VERSION 1.17
+RUN set -eux; \
+	\
+	apk add --no-cache --virtual .gosu-deps \
+		ca-certificates \
+		dpkg \
+		gnupg \
+	; \
+	\
+	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
+	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
+	\
+# verify the signature
+	export GNUPGHOME="$(mktemp -d)"; \
+	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
+	gpgconf --kill all; \
+	rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
+	\
+# clean up fetch dependencies
+	apk del --no-network .gosu-deps; \
+	\
+	chmod +x /usr/local/bin/gosu; \
+# verify that the binary works
+	gosu --version; \
+	gosu nobody true
 
 # optional packages
 RUN apk add --no-cache nano
