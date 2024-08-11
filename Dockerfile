@@ -49,11 +49,8 @@ RUN mkdir /etc/cache_keys
 
 # 22 for ssh
 EXPOSE 22
-# 25565 for papermc
+# 25565 for minecraft
 EXPOSE 25565/tcp
 EXPOSE 25565/udp
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-
-# RUN SSH in no daemon and expose errors to stdout
-# CMD [ "/usr/sbin/sshd", "-D", "-e" ]
